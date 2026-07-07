@@ -163,26 +163,26 @@ body {
 .inputs-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 280px;
-    margin: 0 auto; /* Centrado horizontalmente */
+    gap: 14px; /* Un poco más de espacio entre filas */
+    max-width: 100%; /* Ahora ocupará todo el espacio disponible */
+    padding: 0 10px;
     width: 100%;
 }
 
 .input-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--bg-color);
+    flex-direction: column; /* Cambiamos a columna para que el texto quede arriba del input */
+    gap: 6px; /* Espacio entre el texto y el input */
+    padding-bottom: 4px;
+    border-bottom: none; /* Quitamos la línea para un look más limpio */
 }
 .input-row:last-child { border-bottom: none; padding-bottom: 0; }
 
 .input-row label {
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.95rem; /* Texto un poco más grande */
+    font-weight: 600;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between; /* Mantiene el porcentaje a la derecha */
 }
 .input-row label span {
     font-size: 0.7rem;
@@ -190,25 +190,25 @@ body {
     font-weight: 600;
 }
 
+/* El input ahora ocupa el 100% del ancho */
 input[type="number"] {
-    width: 60px;
-    padding: 6px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-size: 0.95rem;
+    width: 100%; 
+    padding: 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 1.25rem; /* Número bien grande */
     text-align: center;
-    font-weight: 600;
-    background: var(--bg-color);
+    font-weight: 700;
+    background: #fff; /* Fondo blanco para mayor contraste */
     appearance: textfield;
+    transition: all 0.2s ease;
 }
 
 input[type="number"]:focus {
     outline: none;
     border-color: var(--primary);
-    background: #fff;
-    box-shadow: 0 0 0 2px var(--primary-light);
+    box-shadow: 0 0 0 4px var(--primary-light);
 }
-
 /* Adaptación para móviles */
 @media (max-width: 600px) {
     .app-split-container {
