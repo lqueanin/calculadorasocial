@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calculadora de Notas - Psicología Social</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="app-split-container">
+        
+        <section class="left-panel">
+            <header class="header">
+                <h1>Psicología Social</h1>
+                <button id="btn-borrar" class="icon-btn" title="Borrar datos">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                </button>
+            </header>
+
+            <div class="final-result-box">
+                <span class="label">Promedio Final</span>
+                <div class="final-score" id="promedio-final">--</div>
+                <div class="status" id="estado">Ingresa notas</div>
+            </div>
+
+            <div class="units-vertical-list">
+                <div class="unit-row locked">
+                    <div class="unit-info">
+                        <span>Unidad I</span>
+                        <small>30%</small>
+                    </div>
+                    <strong>7.10</strong>
+                </div>
+                <div class="unit-row locked">
+                    <div class="unit-info">
+                        <span>Unidad II</span>
+                        <small>35%</small>
+                    </div>
+                    <strong>11.70</strong>
+                </div>
+                <div class="unit-row highlight">
+                    <div class="unit-info">
+                        <span>Unidad III</span>
+                        <small>35%</small>
+                    </div>
+                    <strong id="unidad3-total">0.00</strong>
+                </div>
+            </div>
+
+            <div class="meta-box" id="meta-container">
+                </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="inputs-list">
+                <div class="input-row">
+                    <label for="trabajos">Trabajos <span>(5%)</span></label>
+                    <input type="number" id="trabajos" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="control1">Control I <span>(10%)</span></label>
+                    <input type="number" id="control1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="control2">Control II <span>(10%)</span></label>
+                    <input type="number" id="control2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="presentacion">Sustent. <span>(15%)</span></label>
+                    <input type="number" id="presentacion" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="oral">Oral <span>(15%)</span></label>
+                    <input type="number" id="oral" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="escrita">Parcial <span>(25%)</span></label>
+                    <input type="number" id="escrita" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="actitud">Actitud <span>(10%)</span></label>
+                    <input type="number" id="actitud" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+                <div class="input-row">
+                    <label for="contenido">Contenido <span>(10%)</span></label>
+                    <input type="number" id="contenido" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
