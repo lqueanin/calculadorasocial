@@ -104,7 +104,7 @@ function irAUnidad(numeroUnidad, animar = true) {
     }
 
     carousel.scrollTo({
-        left: panel.offsetLeft,
+        left: (numeroUnidad - 1) * carousel.clientWidth,
         behavior: animar ? 'smooth' : 'auto'
     });
 
