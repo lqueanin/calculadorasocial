@@ -9,6 +9,8 @@
     --success-light: #f0fdf4;
     --danger: #ef4444;
     --danger-light: #fef2f2;
+    --warning: #f59e0b;
+    --warning-light: #fffbeb;
     --border: #e4e4e7;
 }
 
@@ -18,6 +20,12 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: 'Inter', -apple-system, sans-serif;
     background-color: var(--bg-color);
@@ -25,28 +33,27 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100dvh;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-/* Contenedor principal dividido */
 .app-split-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     height: 100dvh;
     background: var(--card-bg);
     display: grid;
-    grid-template-columns: 320px 1fr;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    grid-template-columns: 300px minmax(0, 1fr);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 }
 
-/* Panel Izquierdo */
 .left-panel {
+    min-width: 0;
     border-right: 1px solid var(--border);
-    padding: 20px 16px; /* Más espacio arriba */
+    padding: 18px 14px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     background: #fafafa;
     overflow-y: auto;
 }
@@ -55,12 +62,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 8px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
 }
 
 .header h1 {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
 }
 
@@ -69,164 +76,368 @@ body {
     border: none;
     color: var(--danger);
     cursor: pointer;
-    padding: 4px;
+    padding: 5px;
+    border-radius: 6px;
+}
+
+.icon-btn:hover {
+    background: var(--danger-light);
 }
 
 .final-result-box {
     text-align: center;
-    padding: 10px 0;
+    padding: 10px 0 4px;
 }
 
 .label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
 }
 
 .final-score {
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 700;
     line-height: 1;
-    margin: 8px 0;
+    margin: 9px 0;
 }
 
 .status {
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
     display: inline-block;
     background: var(--border);
 }
 
-.status.aprobado { background: var(--success-light); color: var(--success); }
-.status.desaprobado { background: var(--danger-light); color: var(--danger); }
+.status.aprobado {
+    background: var(--success-light);
+    color: var(--success);
+}
 
-/* Resumen de Unidades en Lista */
+.status.desaprobado {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.status.progreso {
+    background: var(--warning-light);
+    color: #b45309;
+}
+
 .units-vertical-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    max-width: 200px;
+    gap: 8px;
+    max-width: 210px;
     margin: 0 auto;
     width: 100%;
 }
 
 .unit-row {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     background: var(--card-bg);
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 9px;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+}
+
+.unit-selector {
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.unit-selector:hover {
+    border-color: #cbd5e1;
+}
+
+.unit-selector.active {
+    background: var(--primary-light);
+    border-color: #bfdbfe;
+    color: var(--primary);
+}
+
+.unit-selector.active small {
+    color: var(--primary);
 }
 
 .unit-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-.unit-info span { font-weight: 600; font-size: 0.85rem; }
-.unit-info small { color: var(--text-muted); font-size: 0.7rem; }
-.unit-row strong { font-size: 1rem; }
+.unit-info span {
+    font-weight: 600;
+    font-size: 0.82rem;
+}
 
-.unit-row.highlight {
-    background: var(--primary-light);
-    border-color: var(--primary-light);
+.unit-info small {
+    color: var(--text-muted);
+    font-size: 0.66rem;
+}
+
+.unit-row strong {
+    font-size: 0.95rem;
+    flex: 0 0 auto;
+}
+
+.swipe-hint {
+    text-align: center;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+.swipe-hint span {
     color: var(--primary);
+    font-weight: 700;
 }
-.unit-row.highlight small { color: var(--primary); }
 
 .meta-box {
     margin-top: auto;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     background: var(--card-bg);
     padding: 10px;
     border-radius: 8px;
     border: 1px solid var(--border);
-    line-height: 1.3;
+    line-height: 1.4;
     text-align: center;
 }
 
-/* Panel Derecho */
+/* Carrusel horizontal de unidades */
 .right-panel {
-    padding: 20px 16px; /* Emparejado con el padding del panel izquierdo */
-    overflow-y: auto; 
+    min-width: 0;
+    height: 100dvh;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #c4c4c8 transparent;
+}
+
+.unit-panel {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    padding: 18px 18px 26px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    background: var(--card-bg);
+}
+
+.unit-panel + .unit-panel {
+    border-left: 1px solid var(--border);
+}
+
+.section-title {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* CORRECCIÓN: Alinea todo hacia arriba, no al centro */
+    gap: 3px;
+    position: sticky;
+    top: -18px;
+    z-index: 2;
+    background: var(--card-bg);
+    padding: 18px 4px 14px;
+    border-bottom: 1px solid #f4f4f5;
+    margin-bottom: 12px;
+}
+
+.section-title span {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.section-title small {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.35;
 }
 
 .inputs-list {
     display: flex;
     flex-direction: column;
-    gap: 14px; /* Un poco más de espacio entre filas */
-    max-width: 100%; /* Ahora ocupará todo el espacio disponible */
-    padding: 0 10px;
+    gap: 18px;
     width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding-bottom: 16px;
 }
 
 .input-row {
     display: flex;
-    flex-direction: column; /* Cambiamos a columna para que el texto quede arriba del input */
-    gap: 6px; /* Espacio entre el texto y el input */
-    padding-bottom: 4px;
-    border-bottom: none; /* Quitamos la línea para un look más limpio */
+    flex-direction: column;
+    gap: 7px;
 }
-.input-row:last-child { border-bottom: none; padding-bottom: 0; }
 
 .input-row label {
-    font-size: 0.95rem; /* Texto un poco más grande */
+    font-size: 0.92rem;
     font-weight: 600;
     display: flex;
-    justify-content: space-between; /* Mantiene el porcentaje a la derecha */
-}
-.input-row label span {
-    font-size: 0.7rem;
-    color: var(--primary);
-    font-weight: 600;
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 1.25;
 }
 
-/* El input ahora ocupa el 100% del ancho */
-input[type="number"] {
-    width: 100%; 
-    padding: 14px;
+.input-row label span {
+    flex: 0 0 auto;
+    font-size: 0.72rem;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.grade-input {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 14px;
     border: 2px solid var(--border);
     border-radius: 10px;
-    font-size: 1.25rem; /* Número bien grande */
+    font-size: 1.05rem;
     text-align: center;
     font-weight: 700;
-    background: #fff; /* Fondo blanco para mayor contraste */
+    background: #fff;
     appearance: textfield;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input[type="number"]:focus {
+.grade-input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
 }
-/* Adaptación para móviles */
-@media (max-width: 600px) {
+
+.grade-input::placeholder {
+    color: #a1a1aa;
+}
+
+@media (max-width: 700px) {
     .app-split-container {
-        grid-template-columns: 45% 55%; 
+        grid-template-columns: 40% 60%;
     }
-    
-    /* Reducimos el padding en móviles pero mantenemos el espacio arriba */
-    .left-panel, .right-panel { padding: 16px 8px; }
-    
-    .final-score { font-size: 2rem; }
-    .header h1 { font-size: 0.9rem; }
-    
-    .units-vertical-list { max-width: 100%; }
-    .inputs-list { max-width: 100%; }
-    
-    .unit-row { padding: 6px; }
-    .unit-info span { font-size: 0.75rem; }
-    
-    .input-row label { font-size: 0.75rem; }
-    input[type="number"] { width: 50px; padding: 4px; font-size: 0.85rem; }
+
+    .left-panel {
+        padding: 14px 10px;
+        gap: 12px;
+    }
+
+    .header h1 {
+        font-size: 0.88rem;
+    }
+
+    .final-score {
+        font-size: 2.2rem;
+    }
+
+    .units-vertical-list {
+        max-width: 100%;
+    }
+
+    .unit-row {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .unit-info span {
+        font-size: 0.72rem;
+    }
+
+    .unit-info small {
+        font-size: 0.6rem;
+    }
+
+    .unit-row strong {
+        font-size: 0.82rem;
+    }
+
+    .swipe-hint {
+        font-size: 0.61rem;
+    }
+
+    .meta-box {
+        font-size: 0.68rem;
+        padding: 8px;
+    }
+
+    .unit-panel {
+        padding: 14px 12px 24px;
+    }
+
+    .section-title {
+        top: -14px;
+        padding: 14px 2px 12px;
+        margin-bottom: 10px;
+    }
+
+    .section-title span {
+        font-size: 0.9rem;
+    }
+
+    .section-title small {
+        font-size: 0.65rem;
+    }
+
+    .inputs-list {
+        gap: 15px;
+    }
+
+    .input-row label {
+        font-size: 0.78rem;
+    }
+
+    .input-row label span {
+        font-size: 0.64rem;
+    }
+
+    .grade-input {
+        min-height: 44px;
+        padding: 9px 8px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 430px) {
+    .app-split-container {
+        grid-template-columns: 42% 58%;
+    }
+
+    .left-panel {
+        padding: 12px 8px;
+    }
+
+    .unit-row {
+        padding: 7px 6px;
+    }
+
+    .unit-info span {
+        font-size: 0.68rem;
+    }
+
+    .unit-info small {
+        font-size: 0.56rem;
+    }
+
+    .swipe-hint {
+        display: none;
+    }
+
+    .unit-panel {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
