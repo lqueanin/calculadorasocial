@@ -118,14 +118,37 @@ body {
 }
 
 .unit-row {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 10px;
     background: var(--card-bg);
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: 1px solid var(--border);
     border-radius: 8px;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+}
+
+.unit-selector {
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.unit-selector:hover {
+    border-color: #cbd5e1;
+}
+
+.unit-selector.active {
+    background: var(--primary-light);
+    border-color: #bfdbfe;
+    color: var(--primary);
+}
+
+.unit-selector.active small {
+    color: var(--primary);
 }
 
 .unit-info {
@@ -146,16 +169,7 @@ body {
 
 .unit-row strong {
     font-size: 1rem;
-}
-
-.unit-row.highlight {
-    background: var(--primary-light);
-    border-color: var(--primary-light);
-    color: var(--primary);
-}
-
-.unit-row.highlight small {
-    color: var(--primary);
+    flex: 0 0 auto;
 }
 
 .meta-box {
@@ -178,11 +192,24 @@ body {
     justify-content: flex-start;
 }
 
+.unit-panel {
+    display: none;
+}
+
+.unit-panel.active {
+    display: block;
+}
+
 .section-title {
     padding: 0 10px 14px;
     display: flex;
     flex-direction: column;
     gap: 3px;
+    position: sticky;
+    top: -20px;
+    z-index: 2;
+    background: var(--card-bg);
+    padding-top: 20px;
 }
 
 .section-title span {
@@ -223,14 +250,17 @@ body {
 
 .input-row label span {
     flex: 0 0 auto;
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--primary);
-    font-weight: 600;
+    font-weight: 700;
 }
 
-input[type="number"] {
+.grade-input {
+    width: 100%;
+    padding: 14px;
     border: 2px solid var(--border);
     border-radius: 10px;
+    font-size: 1.25rem;
     text-align: center;
     font-weight: 700;
     background: #fff;
@@ -238,28 +268,13 @@ input[type="number"] {
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input[type="number"]:focus {
+.grade-input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
 }
 
-.u3-input {
-    width: 100%;
-    padding: 14px;
-    font-size: 1.25rem;
-}
-
-.unit-average-input {
-    width: 76px;
-    flex: 0 0 76px;
-    padding: 8px 6px;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
-.unit-average-input::placeholder,
-.u3-input::placeholder {
+.grade-input::placeholder {
     color: #a1a1aa;
 }
 
@@ -287,7 +302,7 @@ input[type="number"]:focus {
     }
 
     .unit-row {
-        padding: 6px;
+        padding: 8px 6px;
         gap: 6px;
     }
 
@@ -295,15 +310,17 @@ input[type="number"]:focus {
         font-size: 0.75rem;
     }
 
-    .unit-average-input {
-        width: 58px;
-        flex-basis: 58px;
-        padding: 6px 3px;
+    .unit-info small {
+        font-size: 0.62rem;
+    }
+
+    .unit-row strong {
         font-size: 0.85rem;
     }
 
     .section-title {
-        padding: 0 4px 12px;
+        top: -16px;
+        padding: 16px 4px 12px;
     }
 
     .inputs-list {
@@ -312,17 +329,20 @@ input[type="number"]:focus {
     }
 
     .input-row label {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
         gap: 6px;
     }
 
     .input-row label span {
-        font-size: 0.62rem;
+        font-size: 0.65rem;
     }
 
-    .u3-input {
-        width: 100%;
-        padding: 8px 5px;
-        font-size: 0.9rem;
+    .grade-input {
+        padding: 9px 5px;
+        font-size: 0.95rem;
+    }
+
+    .meta-box {
+        font-size: 0.72rem;
     }
 }
