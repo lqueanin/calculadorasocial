@@ -23,96 +23,156 @@
             <div class="final-result-box">
                 <span class="label">Promedio Final</span>
                 <div class="final-score" id="promedio-final">--</div>
-                <div class="status" id="estado">Ingresa notas</div>
+                <div class="status" id="estado">Ingresa tus notas</div>
             </div>
 
             <div class="units-vertical-list">
-                <div class="unit-row">
+                <button class="unit-row unit-selector active" data-target="unidad1-panel" type="button">
                     <div class="unit-info">
                         <span>Unidad I</span>
-                        <small>30%</small>
+                        <small>30% del curso</small>
                     </div>
-                    <input
-                        type="number"
-                        id="unidad1"
-                        class="unit-average-input"
-                        min="0"
-                        max="20"
-                        step="0.01"
-                        placeholder="--"
-                        inputmode="decimal"
-                        aria-label="Promedio de la Unidad I">
-                </div>
+                    <strong id="unidad1-total">--</strong>
+                </button>
 
-                <div class="unit-row">
+                <button class="unit-row unit-selector" data-target="unidad2-panel" type="button">
                     <div class="unit-info">
                         <span>Unidad II</span>
-                        <small>35%</small>
+                        <small>35% del curso</small>
                     </div>
-                    <input
-                        type="number"
-                        id="unidad2"
-                        class="unit-average-input"
-                        min="0"
-                        max="20"
-                        step="0.01"
-                        placeholder="--"
-                        inputmode="decimal"
-                        aria-label="Promedio de la Unidad II">
-                </div>
+                    <strong id="unidad2-total">--</strong>
+                </button>
 
-                <div class="unit-row highlight">
+                <button class="unit-row unit-selector" data-target="unidad3-panel" type="button">
                     <div class="unit-info">
                         <span>Unidad III</span>
-                        <small>35%</small>
+                        <small>35% del curso</small>
                     </div>
                     <strong id="unidad3-total">--</strong>
-                </div>
+                </button>
             </div>
 
             <div class="meta-box" id="meta-container">
-                Ingresa primero los promedios de las Unidades I y II.
+                Completa las evaluaciones de las tres unidades para calcular tu promedio final.
             </div>
         </section>
 
         <section class="right-panel">
-            <div class="section-title">
-                <span>Unidad III</span>
-                <small>Completa las evaluaciones conforme obtengas tus notas.</small>
+            <div class="unit-panel active" id="unidad1-panel">
+                <div class="section-title">
+                    <span>Unidad I</span>
+                    <small>7 evaluaciones · peso de la unidad: 30%</small>
+                </div>
+
+                <div class="inputs-list">
+                    <div class="input-row">
+                        <label for="u1-e1">Evaluación 01 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u1-e1" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e2">Evaluación 02 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u1-e2" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e3">Evaluación 03 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u1-e3" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e4">Evaluación 04 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u1-e4" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e5">Evaluación 05 <span>20%</span></label>
+                        <input type="number" class="grade-input" id="u1-e5" data-unit="1" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e6">Evaluación 06 <span>30%</span></label>
+                        <input type="number" class="grade-input" id="u1-e6" data-unit="1" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u1-e7">Evaluación 07 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u1-e7" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                </div>
             </div>
 
-            <div class="inputs-list">
-                <div class="input-row">
-                    <label for="trabajos">Trabajos encargados <span>(5%)</span></label>
-                    <input type="number" class="u3-input" id="trabajos" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+            <div class="unit-panel" id="unidad2-panel">
+                <div class="section-title">
+                    <span>Unidad II</span>
+                    <small>7 evaluaciones · peso de la unidad: 35%</small>
                 </div>
-                <div class="input-row">
-                    <label for="control1">Control de lectura I <span>(10%)</span></label>
-                    <input type="number" class="u3-input" id="control1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+
+                <div class="inputs-list">
+                    <div class="input-row">
+                        <label for="u2-e1">Evaluación 01 <span>5%</span></label>
+                        <input type="number" class="grade-input" id="u2-e1" data-unit="2" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e2">Evaluación 02 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u2-e2" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e3">Evaluación 03 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u2-e3" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e4">Evaluación 04 <span>15%</span></label>
+                        <input type="number" class="grade-input" id="u2-e4" data-unit="2" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e5">Evaluación 05 <span>20%</span></label>
+                        <input type="number" class="grade-input" id="u2-e5" data-unit="2" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e6">Evaluación 06 <span>30%</span></label>
+                        <input type="number" class="grade-input" id="u2-e6" data-unit="2" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u2-e7">Evaluación 07 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u2-e7" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
                 </div>
-                <div class="input-row">
-                    <label for="control2">Control de lectura II <span>(10%)</span></label>
-                    <input type="number" class="u3-input" id="control2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+            </div>
+
+            <div class="unit-panel" id="unidad3-panel">
+                <div class="section-title">
+                    <span>Unidad III</span>
+                    <small>8 evaluaciones · peso de la unidad: 35%</small>
                 </div>
-                <div class="input-row">
-                    <label for="presentacion">Presentación y sustentación de trabajo de investigación <span>(15%)</span></label>
-                    <input type="number" class="u3-input" id="presentacion" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
-                </div>
-                <div class="input-row">
-                    <label for="oral">Evaluación oral <span>(15%)</span></label>
-                    <input type="number" class="u3-input" id="oral" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
-                </div>
-                <div class="input-row">
-                    <label for="escrita">Evaluación escrita parcial <span>(25%)</span></label>
-                    <input type="number" class="u3-input" id="escrita" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
-                </div>
-                <div class="input-row">
-                    <label for="actitud">Actitud ante la asignatura <span>(10%)</span></label>
-                    <input type="number" class="u3-input" id="actitud" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
-                </div>
-                <div class="input-row">
-                    <label for="contenido">Evaluación del contenido completo <span>(10%)</span></label>
-                    <input type="number" class="u3-input" id="contenido" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+
+                <div class="inputs-list">
+                    <div class="input-row">
+                        <label for="u3-e1">Evaluación 01 <span>5%</span></label>
+                        <input type="number" class="grade-input" id="u3-e1" data-unit="3" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e2">Evaluación 02 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u3-e2" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e3">Evaluación 03 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u3-e3" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e4">Evaluación 04 <span>15%</span></label>
+                        <input type="number" class="grade-input" id="u3-e4" data-unit="3" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e5">Evaluación 05 <span>15%</span></label>
+                        <input type="number" class="grade-input" id="u3-e5" data-unit="3" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e6">Evaluación 06 <span>25%</span></label>
+                        <input type="number" class="grade-input" id="u3-e6" data-unit="3" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e7">Evaluación 07 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u3-e7" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
+                    <div class="input-row">
+                        <label for="u3-e8">Evaluación 08 <span>10%</span></label>
+                        <input type="number" class="grade-input" id="u3-e8" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                    </div>
                 </div>
             </div>
         </section>
