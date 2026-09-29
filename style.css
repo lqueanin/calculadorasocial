@@ -26,10 +26,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100dvh;
-    overflow: hidden; 
+    overflow: hidden;
 }
 
-/* Contenedor principal dividido */
 .app-split-container {
     width: 100%;
     max-width: 800px;
@@ -37,13 +36,12 @@ body {
     background: var(--card-bg);
     display: grid;
     grid-template-columns: 320px 1fr;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
-/* Panel Izquierdo */
 .left-panel {
     border-right: 1px solid var(--border);
-    padding: 20px 16px; /* Más espacio arriba */
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -100,15 +98,21 @@ body {
     background: var(--border);
 }
 
-.status.aprobado { background: var(--success-light); color: var(--success); }
-.status.desaprobado { background: var(--danger-light); color: var(--danger); }
+.status.aprobado {
+    background: var(--success-light);
+    color: var(--success);
+}
 
-/* Resumen de Unidades en Lista */
+.status.desaprobado {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
 .units-vertical-list {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    max-width: 200px;
+    max-width: 220px;
     margin: 0 auto;
     width: 100%;
 }
@@ -117,6 +121,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     background: var(--card-bg);
     padding: 8px 12px;
     border: 1px solid var(--border);
@@ -126,18 +131,32 @@ body {
 .unit-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
-.unit-info span { font-weight: 600; font-size: 0.85rem; }
-.unit-info small { color: var(--text-muted); font-size: 0.7rem; }
-.unit-row strong { font-size: 1rem; }
+.unit-info span {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.unit-info small {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.unit-row strong {
+    font-size: 1rem;
+}
 
 .unit-row.highlight {
     background: var(--primary-light);
     border-color: var(--primary-light);
     color: var(--primary);
 }
-.unit-row.highlight small { color: var(--primary); }
+
+.unit-row.highlight small {
+    color: var(--primary);
+}
 
 .meta-box {
     margin-top: auto;
@@ -147,61 +166,76 @@ body {
     padding: 10px;
     border-radius: 8px;
     border: 1px solid var(--border);
-    line-height: 1.3;
+    line-height: 1.4;
     text-align: center;
 }
 
-/* Panel Derecho */
 .right-panel {
-    padding: 20px 16px; /* Emparejado con el padding del panel izquierdo */
-    overflow-y: auto; 
+    padding: 20px 16px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* CORRECCIÓN: Alinea todo hacia arriba, no al centro */
+    justify-content: flex-start;
+}
+
+.section-title {
+    padding: 0 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.section-title span {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.section-title small {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.35;
 }
 
 .inputs-list {
     display: flex;
     flex-direction: column;
-    gap: 14px; /* Un poco más de espacio entre filas */
-    max-width: 100%; /* Ahora ocupará todo el espacio disponible */
-    padding: 0 10px;
+    gap: 14px;
+    max-width: 100%;
+    padding: 0 10px 20px;
     width: 100%;
 }
 
 .input-row {
     display: flex;
-    flex-direction: column; /* Cambiamos a columna para que el texto quede arriba del input */
-    gap: 6px; /* Espacio entre el texto y el input */
+    flex-direction: column;
+    gap: 6px;
     padding-bottom: 4px;
-    border-bottom: none; /* Quitamos la línea para un look más limpio */
 }
-.input-row:last-child { border-bottom: none; padding-bottom: 0; }
 
 .input-row label {
-    font-size: 0.95rem; /* Texto un poco más grande */
+    font-size: 0.95rem;
     font-weight: 600;
     display: flex;
-    justify-content: space-between; /* Mantiene el porcentaje a la derecha */
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 1.25;
 }
+
 .input-row label span {
+    flex: 0 0 auto;
     font-size: 0.7rem;
     color: var(--primary);
     font-weight: 600;
 }
 
-/* El input ahora ocupa el 100% del ancho */
 input[type="number"] {
-    width: 100%; 
-    padding: 14px;
     border: 2px solid var(--border);
     border-radius: 10px;
-    font-size: 1.25rem; /* Número bien grande */
     text-align: center;
     font-weight: 700;
-    background: #fff; /* Fondo blanco para mayor contraste */
+    background: #fff;
     appearance: textfield;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input[type="number"]:focus {
@@ -209,24 +243,86 @@ input[type="number"]:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 4px var(--primary-light);
 }
-/* Adaptación para móviles */
+
+.u3-input {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.25rem;
+}
+
+.unit-average-input {
+    width: 76px;
+    flex: 0 0 76px;
+    padding: 8px 6px;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.unit-average-input::placeholder,
+.u3-input::placeholder {
+    color: #a1a1aa;
+}
+
 @media (max-width: 600px) {
     .app-split-container {
-        grid-template-columns: 45% 55%; 
+        grid-template-columns: 45% 55%;
     }
-    
-    /* Reducimos el padding en móviles pero mantenemos el espacio arriba */
-    .left-panel, .right-panel { padding: 16px 8px; }
-    
-    .final-score { font-size: 2rem; }
-    .header h1 { font-size: 0.9rem; }
-    
-    .units-vertical-list { max-width: 100%; }
-    .inputs-list { max-width: 100%; }
-    
-    .unit-row { padding: 6px; }
-    .unit-info span { font-size: 0.75rem; }
-    
-    .input-row label { font-size: 0.75rem; }
-    input[type="number"] { width: 50px; padding: 4px; font-size: 0.85rem; }
+
+    .left-panel,
+    .right-panel {
+        padding: 16px 8px;
+    }
+
+    .final-score {
+        font-size: 2rem;
+    }
+
+    .header h1 {
+        font-size: 0.9rem;
+    }
+
+    .units-vertical-list,
+    .inputs-list {
+        max-width: 100%;
+    }
+
+    .unit-row {
+        padding: 6px;
+        gap: 6px;
+    }
+
+    .unit-info span {
+        font-size: 0.75rem;
+    }
+
+    .unit-average-input {
+        width: 58px;
+        flex-basis: 58px;
+        padding: 6px 3px;
+        font-size: 0.85rem;
+    }
+
+    .section-title {
+        padding: 0 4px 12px;
+    }
+
+    .inputs-list {
+        padding: 0 4px 18px;
+        gap: 12px;
+    }
+
+    .input-row label {
+        font-size: 0.72rem;
+        gap: 6px;
+    }
+
+    .input-row label span {
+        font-size: 0.62rem;
+    }
+
+    .u3-input {
+        width: 100%;
+        padding: 8px 5px;
+        font-size: 0.9rem;
+    }
 }
