@@ -11,11 +11,11 @@
 </head>
 <body>
     <main class="app-split-container">
-        
+
         <section class="left-panel">
             <header class="header">
                 <h1>Psicología Social</h1>
-                <button id="btn-borrar" class="icon-btn" title="Borrar datos">
+                <button id="btn-borrar" class="icon-btn" title="Borrar datos" aria-label="Borrar todas las notas">
                     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                 </button>
             </header>
@@ -27,66 +27,92 @@
             </div>
 
             <div class="units-vertical-list">
-                <div class="unit-row locked">
+                <div class="unit-row">
                     <div class="unit-info">
                         <span>Unidad I</span>
                         <small>30%</small>
                     </div>
-                    <strong>7.10</strong>
+                    <input
+                        type="number"
+                        id="unidad1"
+                        class="unit-average-input"
+                        min="0"
+                        max="20"
+                        step="0.01"
+                        placeholder="--"
+                        inputmode="decimal"
+                        aria-label="Promedio de la Unidad I">
                 </div>
-                <div class="unit-row locked">
+
+                <div class="unit-row">
                     <div class="unit-info">
                         <span>Unidad II</span>
                         <small>35%</small>
                     </div>
-                    <strong>11.70</strong>
+                    <input
+                        type="number"
+                        id="unidad2"
+                        class="unit-average-input"
+                        min="0"
+                        max="20"
+                        step="0.01"
+                        placeholder="--"
+                        inputmode="decimal"
+                        aria-label="Promedio de la Unidad II">
                 </div>
+
                 <div class="unit-row highlight">
                     <div class="unit-info">
                         <span>Unidad III</span>
                         <small>35%</small>
                     </div>
-                    <strong id="unidad3-total">0.00</strong>
+                    <strong id="unidad3-total">--</strong>
                 </div>
             </div>
 
             <div class="meta-box" id="meta-container">
-                </div>
+                Ingresa primero los promedios de las Unidades I y II.
+            </div>
         </section>
 
         <section class="right-panel">
+            <div class="section-title">
+                <span>Unidad III</span>
+                <small>Completa las evaluaciones conforme obtengas tus notas.</small>
+            </div>
+
             <div class="inputs-list">
                 <div class="input-row">
-                    <label for="trabajos">Trabajos <span>(5%)</span></label>
-                    <input type="number" id="trabajos" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="trabajos">Trabajos encargados <span>(5%)</span></label>
+                    <input type="number" class="u3-input" id="trabajos" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="control1">Control I <span>(10%)</span></label>
-                    <input type="number" id="control1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="control1">Control de lectura I <span>(10%)</span></label>
+                    <input type="number" class="u3-input" id="control1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="control2">Control II <span>(10%)</span></label>
-                    <input type="number" id="control2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="control2">Control de lectura II <span>(10%)</span></label>
+                    <input type="number" class="u3-input" id="control2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="presentacion">Sustent. <span>(15%)</span></label>
-                    <input type="number" id="presentacion" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="presentacion">Presentación y sustentación de trabajo de investigación <span>(15%)</span></label>
+                    <input type="number" class="u3-input" id="presentacion" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="oral">Oral <span>(15%)</span></label>
-                    <input type="number" id="oral" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="oral">Evaluación oral <span>(15%)</span></label>
+                    <input type="number" class="u3-input" id="oral" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="escrita">Parcial <span>(25%)</span></label>
-                    <input type="number" id="escrita" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="escrita">Evaluación escrita parcial <span>(25%)</span></label>
+                    <input type="number" class="u3-input" id="escrita" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="actitud">Actitud <span>(10%)</span></label>
-                    <input type="number" id="actitud" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="actitud">Actitud ante la asignatura <span>(10%)</span></label>
+                    <input type="number" class="u3-input" id="actitud" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
                 <div class="input-row">
-                    <label for="contenido">Contenido <span>(10%)</span></label>
-                    <input type="number" id="contenido" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--">
+                    <label for="contenido">Evaluación del contenido completo <span>(10%)</span></label>
+                    <input type="number" class="u3-input" id="contenido" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                 </div>
             </div>
         </section>
