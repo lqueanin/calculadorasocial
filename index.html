@@ -21,13 +21,13 @@
             </header>
 
             <div class="final-result-box">
-                <span class="label">Promedio Final</span>
+                <span class="label" id="promedio-label">Promedio acumulado</span>
                 <div class="final-score" id="promedio-final">--</div>
                 <div class="status" id="estado">Ingresa tus notas</div>
             </div>
 
             <div class="units-vertical-list">
-                <button class="unit-row unit-selector active" data-target="unidad1-panel" type="button">
+                <button class="unit-row unit-selector active" data-unit="1" type="button">
                     <div class="unit-info">
                         <span>Unidad I</span>
                         <small>30% del curso</small>
@@ -35,7 +35,7 @@
                     <strong id="unidad1-total">--</strong>
                 </button>
 
-                <button class="unit-row unit-selector" data-target="unidad2-panel" type="button">
+                <button class="unit-row unit-selector" data-unit="2" type="button">
                     <div class="unit-info">
                         <span>Unidad II</span>
                         <small>35% del curso</small>
@@ -43,7 +43,7 @@
                     <strong id="unidad2-total">--</strong>
                 </button>
 
-                <button class="unit-row unit-selector" data-target="unidad3-panel" type="button">
+                <button class="unit-row unit-selector" data-unit="3" type="button">
                     <div class="unit-info">
                         <span>Unidad III</span>
                         <small>35% del curso</small>
@@ -52,13 +52,17 @@
                 </button>
             </div>
 
+            <div class="swipe-hint">
+                <span>←</span> Desliza para cambiar de unidad <span>→</span>
+            </div>
+
             <div class="meta-box" id="meta-container">
                 Completa las evaluaciones de las tres unidades para calcular tu promedio final.
             </div>
         </section>
 
-        <section class="right-panel">
-            <div class="unit-panel active" id="unidad1-panel">
+        <section class="right-panel" id="units-carousel" aria-label="Evaluaciones por unidad">
+            <article class="unit-panel" id="unidad1-panel" data-unit-panel="1">
                 <div class="section-title">
                     <span>Unidad I</span>
                     <small>7 evaluaciones · peso de la unidad: 30%</small>
@@ -67,36 +71,36 @@
                 <div class="inputs-list">
                     <div class="input-row">
                         <label for="u1-e1">Evaluación 01 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u1-e1" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e2">Evaluación 02 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u1-e2" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e3">Evaluación 03 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u1-e3" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e4">Evaluación 04 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u1-e4" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e4" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e5">Evaluación 05 <span>20%</span></label>
-                        <input type="number" class="grade-input" id="u1-e5" data-unit="1" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e5" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e6">Evaluación 06 <span>30%</span></label>
-                        <input type="number" class="grade-input" id="u1-e6" data-unit="1" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e6" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u1-e7">Evaluación 07 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u1-e7" data-unit="1" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u1-e7" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="unit-panel" id="unidad2-panel">
+            <article class="unit-panel" id="unidad2-panel" data-unit-panel="2">
                 <div class="section-title">
                     <span>Unidad II</span>
                     <small>7 evaluaciones · peso de la unidad: 35%</small>
@@ -105,36 +109,36 @@
                 <div class="inputs-list">
                     <div class="input-row">
                         <label for="u2-e1">Evaluación 01 <span>5%</span></label>
-                        <input type="number" class="grade-input" id="u2-e1" data-unit="2" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e1" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e2">Evaluación 02 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u2-e2" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e3">Evaluación 03 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u2-e3" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e4">Evaluación 04 <span>15%</span></label>
-                        <input type="number" class="grade-input" id="u2-e4" data-unit="2" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e4" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e5">Evaluación 05 <span>20%</span></label>
-                        <input type="number" class="grade-input" id="u2-e5" data-unit="2" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e5" data-weight="0.20" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e6">Evaluación 06 <span>30%</span></label>
-                        <input type="number" class="grade-input" id="u2-e6" data-unit="2" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e6" data-weight="0.30" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u2-e7">Evaluación 07 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u2-e7" data-unit="2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u2-e7" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                 </div>
-            </div>
+            </article>
 
-            <div class="unit-panel" id="unidad3-panel">
+            <article class="unit-panel" id="unidad3-panel" data-unit-panel="3">
                 <div class="section-title">
                     <span>Unidad III</span>
                     <small>8 evaluaciones · peso de la unidad: 35%</small>
@@ -143,38 +147,38 @@
                 <div class="inputs-list">
                     <div class="input-row">
                         <label for="u3-e1">Evaluación 01 <span>5%</span></label>
-                        <input type="number" class="grade-input" id="u3-e1" data-unit="3" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e1" data-weight="0.05" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e2">Evaluación 02 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u3-e2" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e2" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e3">Evaluación 03 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u3-e3" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e4">Evaluación 04 <span>15%</span></label>
-                        <input type="number" class="grade-input" id="u3-e4" data-unit="3" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e4" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e5">Evaluación 05 <span>15%</span></label>
-                        <input type="number" class="grade-input" id="u3-e5" data-unit="3" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e5" data-weight="0.15" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e6">Evaluación 06 <span>25%</span></label>
-                        <input type="number" class="grade-input" id="u3-e6" data-unit="3" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e6" data-weight="0.25" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e7">Evaluación 07 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u3-e7" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e7" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                     <div class="input-row">
                         <label for="u3-e8">Evaluación 08 <span>10%</span></label>
-                        <input type="number" class="grade-input" id="u3-e8" data-unit="3" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
+                        <input type="number" class="grade-input" id="u3-e8" data-weight="0.10" min="0" max="20" step="0.01" placeholder="--" inputmode="decimal">
                     </div>
                 </div>
-            </div>
+            </article>
         </section>
 
     </main>
