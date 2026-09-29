@@ -1,6 +1,5 @@
 /**
- * Lógica - Calculadora de Notas
- * Psicología Social
+ * Calculadora de notas - Psicología Social
  */
 
 const PESOS_UNIDADES = {
@@ -11,13 +10,14 @@ const PESOS_UNIDADES = {
 
 const NOTA_MINIMA_APROBATORIA = 10.5;
 const STORAGE_KEY = 'notas_psicologia_v3';
-const STORAGE_KEYS_ANTERIORES = ['notas_psicologia', 'notas_psicologia_v2'];
 
 const inputs = Array.from(document.querySelectorAll('.grade-input'));
 const unitSelectors = Array.from(document.querySelectorAll('.unit-selector'));
 const unitPanels = Array.from(document.querySelectorAll('.unit-panel'));
+const carousel = document.getElementById('units-carousel');
 
 const outPromedio = document.getElementById('promedio-final');
+const promedioLabel = document.getElementById('promedio-label');
 const outEstado = document.getElementById('estado');
 const metaContainer = document.getElementById('meta-container');
 const btnBorrar = document.getElementById('btn-borrar');
@@ -28,10 +28,12 @@ const outputsUnidad = {
     3: document.getElementById('unidad3-total')
 };
 
+let scrollFrame = null;
+
 document.addEventListener('DOMContentLoaded', () => {
-    STORAGE_KEYS_ANTERIORES.forEach(clave => localStorage.removeItem(clave));
     cargarDatos();
     calcularTodo();
+    marcarUnidadActiva(1);
 });
 
 inputs.forEach(input => {
@@ -44,30 +46,77 @@ inputs.forEach(input => {
 
 unitSelectors.forEach(selector => {
     selector.addEventListener('click', () => {
-        activarUnidad(selector.dataset.target);
+        irAUnidad(Number(selector.dataset.unit));
     });
+});
+
+carousel.addEventListener('scroll', () => {
+    if (scrollFrame) {
+        cancelAnimationFrame(scrollFrame);
+    }
+
+    scrollFrame = requestAnimationFrame(() => {
+        const ancho = carousel.clientWidth;
+
+        if (!ancho) {
+            return;
+        }
+
+        const unidadVisible = Math.min(
+            3,
+            Math.max(1, Math.round(carousel.scrollLeft / ancho) + 1)
+        );
+
+        marcarUnidadActiva(unidadVisible);
+    });
+}, { passive: true });
+
+window.addEventListener('resize', () => {
+    const activa = Number(
+        document.querySelector('.unit-selector.active')?.dataset.unit || 1
+    );
+
+    irAUnidad(activa, false);
 });
 
 btnBorrar.addEventListener('click', () => {
-    if (confirm('¿Deseas borrar todas tus notas?')) {
-        localStorage.removeItem(STORAGE_KEY);
-
-        inputs.forEach(input => {
-            input.value = '';
-        });
-
-        activarUnidad('unidad1-panel');
-        calcularTodo();
+    if (!confirm('¿Deseas borrar todas tus notas?')) {
+        return;
     }
-});
 
-function activarUnidad(panelId) {
-    unitSelectors.forEach(selector => {
-        selector.classList.toggle('active', selector.dataset.target === panelId);
+    localStorage.removeItem(STORAGE_KEY);
+
+    inputs.forEach(input => {
+        input.value = '';
     });
 
-    unitPanels.forEach(panel => {
-        panel.classList.toggle('active', panel.id === panelId);
+    calcularTodo();
+    irAUnidad(1);
+});
+
+function irAUnidad(numeroUnidad, animar = true) {
+    const panel = document.querySelector(
+        `.unit-panel[data-unit-panel="${numeroUnidad}"]`
+    );
+
+    if (!panel) {
+        return;
+    }
+
+    carousel.scrollTo({
+        left: panel.offsetLeft,
+        behavior: animar ? 'smooth' : 'auto'
+    });
+
+    marcarUnidadActiva(numeroUnidad);
+}
+
+function marcarUnidadActiva(numeroUnidad) {
+    unitSelectors.forEach(selector => {
+        selector.classList.toggle(
+            'active',
+            Number(selector.dataset.unit) === numeroUnidad
+        );
     });
 }
 
@@ -80,9 +129,7 @@ function validarEntrada(input) {
 
     if (valor < 0) {
         input.value = 0;
-    }
-
-    if (valor > 20) {
+    } else if (valor > 20) {
         input.value = 20;
     }
 }
@@ -120,10 +167,16 @@ function cargarDatos() {
 }
 
 function obtenerDatosUnidad(numeroUnidad) {
-    const inputsUnidad = inputs.filter(input => Number(input.dataset.unit) === numeroUnidad);
+    const panel = document.querySelector(
+        `.unit-panel[data-unit-panel="${numeroUnidad}"]`
+    );
+
+    const inputsUnidad = panel
+        ? Array.from(panel.querySelectorAll('.grade-input'))
+        : [];
 
     let notaAcumulada = 0;
-    let pesoIngresado = 0;
+    let pesoPendiente = 0;
     let cantidadIngresada = 0;
 
     inputsUnidad.forEach(input => {
@@ -131,57 +184,70 @@ function obtenerDatosUnidad(numeroUnidad) {
         const valor = parseFloat(input.value);
 
         if (Number.isNaN(valor)) {
+            pesoPendiente += peso;
             return;
         }
 
         notaAcumulada += valor * peso;
-        pesoIngresado += peso;
         cantidadIngresada += 1;
     });
 
-    const completa = cantidadIngresada === inputsUnidad.length;
-
     return {
         numeroUnidad,
-        inputsUnidad,
         notaAcumulada,
-        pesoIngresado,
+        pesoPendiente,
         cantidadIngresada,
         cantidadTotal: inputsUnidad.length,
-        completa
+        completa: cantidadIngresada === inputsUnidad.length
     };
 }
 
 function calcularTodo() {
-    const unidades = [
-        obtenerDatosUnidad(1),
-        obtenerDatosUnidad(2),
-        obtenerDatosUnidad(3)
-    ];
+    const unidades = [1, 2, 3].map(obtenerDatosUnidad);
 
     unidades.forEach(unidad => {
-        outputsUnidad[unidad.numeroUnidad].textContent = unidad.completa
-            ? unidad.notaAcumulada.toFixed(2)
-            : '--';
+        outputsUnidad[unidad.numeroUnidad].textContent =
+            unidad.cantidadIngresada === 0
+                ? '--'
+                : unidad.notaAcumulada.toFixed(2);
     });
+
+    const cantidadTotalIngresada = unidades.reduce(
+        (total, unidad) => total + unidad.cantidadIngresada,
+        0
+    );
+
+    const promedioAcumulado = unidades.reduce(
+        (total, unidad) =>
+            total + unidad.notaAcumulada * PESOS_UNIDADES[unidad.numeroUnidad],
+        0
+    );
 
     const todasCompletas = unidades.every(unidad => unidad.completa);
 
-    if (!todasCompletas) {
+    if (cantidadTotalIngresada === 0) {
+        promedioLabel.textContent = 'Promedio acumulado';
         outPromedio.textContent = '--';
-        outEstado.textContent = 'Faltan notas';
+        outEstado.textContent = 'Ingresa tus notas';
         outEstado.className = 'status';
-        actualizarMetaPendiente(unidades);
+        metaContainer.textContent =
+            'Completa tus evaluaciones. Cada unidad se calculará de forma independiente.';
         return;
     }
 
-    const promedioFinal = unidades.reduce((acumulado, unidad) => {
-        return acumulado + (unidad.notaAcumulada * PESOS_UNIDADES[unidad.numeroUnidad]);
-    }, 0);
+    outPromedio.textContent = promedioAcumulado.toFixed(2);
 
-    outPromedio.textContent = promedioFinal.toFixed(2);
-    actualizarEstadoFinal(promedioFinal);
-    actualizarMetaFinal(promedioFinal);
+    if (todasCompletas) {
+        promedioLabel.textContent = 'Promedio final';
+        actualizarEstadoFinal(promedioAcumulado);
+        actualizarMetaFinal(promedioAcumulado);
+        return;
+    }
+
+    promedioLabel.textContent = 'Promedio acumulado';
+    outEstado.textContent = 'EN PROGRESO';
+    outEstado.className = 'status progreso';
+    actualizarMetaPendiente(unidades, promedioAcumulado);
 }
 
 function actualizarEstadoFinal(promedioFinal) {
@@ -194,30 +260,62 @@ function actualizarEstadoFinal(promedioFinal) {
     }
 }
 
-function actualizarMetaPendiente(unidades) {
-    const unidadPendiente = unidades.find(unidad => !unidad.completa);
+function actualizarMetaPendiente(unidades, promedioAcumulado) {
+    let cantidadPendiente = 0;
+    let pesoPendienteCurso = 0;
 
-    if (!unidadPendiente) {
+    unidades.forEach(unidad => {
+        const panel = document.querySelector(
+            `.unit-panel[data-unit-panel="${unidad.numeroUnidad}"]`
+        );
+
+        if (!panel) {
+            return;
+        }
+
+        panel.querySelectorAll('.grade-input').forEach(input => {
+            if (input.value !== '') {
+                return;
+            }
+
+            cantidadPendiente += 1;
+            pesoPendienteCurso +=
+                parseFloat(input.dataset.weight) *
+                PESOS_UNIDADES[unidad.numeroUnidad];
+        });
+    });
+
+    const puntosFaltantes =
+        NOTA_MINIMA_APROBATORIA - promedioAcumulado;
+
+    if (puntosFaltantes <= 0) {
+        metaContainer.innerHTML =
+            'Con lo registrado ya acumulas al menos <strong>10.5</strong>. Aún faltan evaluaciones por completar.';
         return;
     }
 
-    const faltantes = unidadPendiente.cantidadTotal - unidadPendiente.cantidadIngresada;
+    if (pesoPendienteCurso <= 0) {
+        return;
+    }
 
-    metaContainer.innerHTML = `Unidad ${numeroRomano(unidadPendiente.numeroUnidad)}: faltan <strong>${faltantes}</strong> ${faltantes === 1 ? 'evaluación' : 'evaluaciones'} por completar.`;
+    const notaNecesaria = puntosFaltantes / pesoPendienteCurso;
+
+    if (notaNecesaria > 20) {
+        metaContainer.innerHTML =
+            'Con las notas actuales, aun sacando <strong>20</strong> en todo lo pendiente, no se alcanzaría 10.5.';
+        return;
+    }
+
+    metaContainer.innerHTML =
+        `Necesitas promediar <strong>${notaNecesaria.toFixed(2)}</strong> en las ${cantidadPendiente} notas faltantes para llegar a 10.5.`;
 }
 
 function actualizarMetaFinal(promedioFinal) {
     if (promedioFinal >= NOTA_MINIMA_APROBATORIA) {
-        metaContainer.innerHTML = `Promedio final: <strong>${promedioFinal.toFixed(2)}</strong>. Superaste la nota mínima de 10.5.`;
+        metaContainer.innerHTML =
+            `Promedio final: <strong>${promedioFinal.toFixed(2)}</strong>. Superaste la nota mínima de 10.5.`;
     } else {
-        metaContainer.innerHTML = `Promedio final: <strong>${promedioFinal.toFixed(2)}</strong>. La nota mínima aprobatoria es 10.5.`;
+        metaContainer.innerHTML =
+            `Promedio final: <strong>${promedioFinal.toFixed(2)}</strong>. La nota mínima aprobatoria es 10.5.`;
     }
-}
-
-function numeroRomano(numero) {
-    return {
-        1: 'I',
-        2: 'II',
-        3: 'III'
-    }[numero];
 }
